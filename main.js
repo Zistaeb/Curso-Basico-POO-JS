@@ -41,3 +41,38 @@ const Juanita = new Student(
         "Curso de Creacion de Personajes",
     ],
 );
+
+//Prototipos con la sintaxis de clases
+
+class Student2 {
+    constructor({
+        name,
+        age, 
+        email,
+        cursosAprobados = [], 
+    }) {
+            this.name = name;
+            this.age = age;
+            this.email = email;
+            this.cursosAprobados = cursosAprobados;
+
+        /*this.aprobarCurso = function(nuevoCursito) {
+        this.cursosAprobados.push(nuevoCursito);
+    };*/
+    }
+
+    aprobarCurso(nuevoCursito) {
+        this.cursosAprobados.push(nuevoCursito);
+    };
+};
+
+const jimena = new Student2({
+    name: "Jimena",
+    age:  35,
+    cursosAprobados: [
+        "Curso de Analisis de Negocio para Ciencia de Datos",
+        "Curso de Pricipios de Visualizacion de Datos para BI",
+
+     ],
+     email: "jimena@gmail.com.es",
+});
