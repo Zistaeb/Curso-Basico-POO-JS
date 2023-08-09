@@ -1,3 +1,13 @@
+class Course {
+    constructor({
+        name,
+        classes = [],
+    }) {
+        this.name = name;
+        this.classes = classes;
+    }
+};
+
 class learningPath {
     constructor({
         name,
@@ -33,30 +43,70 @@ class student {
     }
 };
 
+const cursoProBasica = new Course({
+    name: "Curso Gratis de Programacion Basica",
+});
+
+const cursoJS = new Course({
+    name: 'Curso de JS',
+});
+
+const cursoReact = new Course({
+    name: 'Curso de React',
+});
+
+const cursoNextJS = new Course({
+    name: 'Curso Next JS',
+});
+
+const cursoPython = new Course({
+    name: "Curso Python",
+});
+
+const cursoMatematicas = new Course({
+    name: "Curso Matematicas",
+});
+
+const cursoExcel = new Course({
+    name: "Curso Excel",
+});
+
+const introduccionVideojuegos = new Course({
+    name: "Introduccion Videojuegos",
+});
+
+const cursoVideojuegos2D = new Course({
+    name: "Curso Videojuegos 2D",
+});
+
+const cursoVideojuegos3D = new Course({
+    name: "Curso Videojuegos 3D",
+});
+
 const escuelaDesarrolloWeb = new learningPath({
     name: "Escuela de Desarrollo Web",
     courses: [
-        'Curso de JS',
-        'Curso de React',
-        'Curso Next JS',
+        cursoJS,
+        cursoReact,
+        cursoNextJS,
     ],
 });
 
 const escuelaData = new learningPath({
     name: "Escuela de Data Science",
     courses: [
-      "Curso Python",
-      "Curso Matematicas",
-      "Curso Excel",
+        cursoPython,
+        cursoMatematicas,
+        cursoExcel,
     ],
 });
 
 const escuelaVideoJuegos = new learningPath({
     name: "Escuela de Videojuegos",
     courses: [
-        "Introduccion Videojuegos",
-        "Curso Videojuegos 2D",
-        "Curso Videojuegos 3D",
+        introduccionVideojuegos,
+        cursoVideojuegos2D,
+        cursoVideojuegos3D,
     ],
 });
 
