@@ -3,9 +3,25 @@ class Course {
         name,
         classes = [],
     }) {
-        this.name = name;
+        this._name = name;      // Añadir guion bajo para que no llamen al atributo name desde fuera
         this.classes = classes;
-    }
+    };
+
+    get name() {
+        return this._name;
+    };
+
+    /*changename(nuevoNombre){
+        this._name = nuevoNombre;
+    };*/
+
+    set name(nuevoNombre) {
+        if (nuevoNombre === 'Curso Malito de Programación Básica'){
+            console.error('Web... no');
+          } else {
+            this._name = nuevoNombre;
+        };
+    };
 };
 
 class learningPath {
@@ -46,6 +62,10 @@ class student {
 const cursoProBasica = new Course({
     name: "Curso Gratis de Programacion Basica",
 });
+
+cursoProBasica.name;            //Decuelve el nombre "Curso Gratis de Programacion Basica"
+//cursoProBasica.name = "";
+//cursoProBasica.changename();
 
 const cursoJS = new Course({
     name: 'Curso de JS',
