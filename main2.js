@@ -1,4 +1,23 @@
-function videoPlay(id) {
+class Comment {
+    constructor ({
+        content, 
+        studentName,
+        studenRole = "estudente",
+    }) {
+        this.content = content;
+        this.studentName = studentName;
+        this.studenRole = studenRole;
+        this.liles = 0;
+    }
+
+    publicar() {                                                
+        console.log(this.studentName + "(" + this.studenRole + ")");
+        console.log(this.likes + " likes");
+        console.log(this.content);
+    }
+}
+
+function videoPlay (id) {
     const urlSecreta = "https://platzisecreto.com/" + id;
     console.log("Se está reproduciendo desde la url" + urlSecreta);
 };
@@ -8,7 +27,7 @@ function videoStop(id) {
     console.log("Pausamos la url" + urlSecreta);
 };
 
-/*export class PlatziClass{
+class PlatziClass{
     constructor({
         name, 
         videoID,
@@ -24,7 +43,7 @@ function videoStop(id) {
     pausar() {
         videoStop(this.videoID);
     };
-};*/
+};
 
 class Course {
     constructor({
@@ -32,7 +51,8 @@ class Course {
         classes = [],
         isFree = false,
         lang = "spanish",
-    }) {
+    }) 
+    {
         this._name = name;      // Añadir guion bajo para que no llamen al atributo name desde fuera
         this.classes = classes;
         this.isFree = isFree;
@@ -89,6 +109,15 @@ class Student {
         this.approvedCourses = approvedCourses;
         this.learningPath = learningPath;
     }
+
+    publicarComentario (commentContent) {
+        const comment = new Comment({
+            content: commentContent,
+            studentName: this.name,
+        });
+
+        comment.publicar();
+    }
 };
 
 class FreeStudent extends Student {
@@ -126,6 +155,26 @@ class BasicStudent extends Student {
 
     approvedCourses(newCourse) {                                //llama al metodo 'approvedCourses'
          this.approvedCourses.push(newCourse);    
+    }
+};
+
+class TeacherStudent extends Student {
+    constructor(props) {
+        super(props)                                   //nos permite llamar al constructor de nuestra clase madre
+    }
+
+    approvedCourses(newCourse) {                                //llama al metodo 'approvedCourses'
+         this.approvedCourses.push(newCourse);    
+    }
+
+    publicarComentario (commentContent) {
+        const comment = new Comment({
+            content: commentContent,
+            studentName: this.name,
+            studentRole: "profesor",
+        });
+
+        comment.publicar();
     }
 };
 
@@ -226,3 +275,32 @@ const ana = new BasicStudent({
         escuelaData,
     ],
 });
+
+const freddy = new TeacherStudent({
+    name: "Freddy",
+    username: "Fred",
+    email: "freddy@gmail.com",
+    instagram: "fred",
+});
+
+
+///Prueba
+
+import { Comment } from "./Comment";
+import { Student } from "./Student";
+
+export class TeacherStudent extends Student {
+  constructor(props, skills = []) {
+    super(props);
+    this.skills = skills;
+  }
+
+  publicarComentario(commentContent) {
+    const comment = new Comment({
+      content: commentContent,
+      studentName: this.name,
+      studentRole: `profesor de ${this.skills.join()}`
+    })
+    return comment.publicar();
+  }
+}
