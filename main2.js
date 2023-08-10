@@ -8,7 +8,7 @@ function videoStop(id) {
     console.log("Pausamos la url" + urlSecreta);
 };
 
-export class PlatziClass{
+/*export class PlatziClass{
     constructor({
         name, 
         videoID,
@@ -24,15 +24,19 @@ export class PlatziClass{
     pausar() {
         videoStop(this.videoID);
     };
-};
+};*/
 
 class Course {
     constructor({
         name,
         classes = [],
+        isFree = false,
+        lang = "spanish",
     }) {
         this._name = name;      // Añadir guion bajo para que no llamen al atributo name desde fuera
         this.classes = classes;
+        this.isFree = isFree;
+        this.lang = lang;
     };
 
     get name() {
@@ -62,7 +66,7 @@ class learningPath {
     }
 };
 
-class student {
+class Student {
     constructor({
         name,
         email,
@@ -87,8 +91,48 @@ class student {
     }
 };
 
+class FreeStudent extends Student {
+    constructor(props) {
+        super(props)                                   //nos permite llamar al constructor de nuestra clase madre
+    }
+
+    approvedCourses(newCourse) {                                //llama al metodo 'approvedCourses'
+        if(newCourse.isFree) {
+            this.approvedCourses.push(newCourse);
+        } else {
+            console.warn("Lo sentimos " + this.name + ", solo puedes tomar cursos abiertos")
+        }
+    }
+};
+
+class BasicStudent extends Student {
+    constructor(props) {
+        super(props)                                   //nos permite llamar al constructor de nuestra clase madre
+    }
+
+    approvedCourses(newCourse) {                                //llama al metodo 'approvedCourses'
+        if(newCourse.lang !== "english") {
+            this.approvedCourses.push(newCourse);
+        } else {
+            console.warn("Lo sentimos " + this.name + ", no puedes tomar cursos en ingles")
+        }
+    }
+};
+
+ class ExpertStudent extends Student {
+    constructor(props) {
+        super(props)                                   //nos permite llamar al constructor de nuestra clase madre
+    }
+
+    approvedCourses(newCourse) {                                //llama al metodo 'approvedCourses'
+         this.approvedCourses.push(newCourse);    
+    }
+};
+
 const cursoProBasica = new Course({
     name: "Curso Gratis de Programacion Basica",
+    isFree: true,
+
 });
 
 cursoProBasica.name;            //Decuelve el nombre "Curso Gratis de Programacion Basica"
@@ -97,6 +141,7 @@ cursoProBasica.name;            //Decuelve el nombre "Curso Gratis de Programaci
 
 const cursoJS = new Course({
     name: 'Curso de JS',
+    lang: "english",
 });
 
 const cursoReact = new Course({
@@ -160,7 +205,7 @@ const escuelaVideoJuegos = new learningPath({
 
 //Crear las instancias
 
-const juan = new student({
+const juan = new FreeStudent({
     name: "JuanDC",
     username: "juandc",
     email: "juan@gmail.com",
@@ -171,7 +216,7 @@ const juan = new student({
     ],
 });
 
-const ana = new student({
+const ana = new BasicStudent({
     name: "Ana",
     username: "ana",
     email: "ana@gmail.com",
